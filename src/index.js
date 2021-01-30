@@ -12,6 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 require("./plugins/core/student/index")(app)
+require("./plugins/core/teacher/index")(app)
 
 db.sequelize.sync();
 
