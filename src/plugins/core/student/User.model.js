@@ -2,7 +2,7 @@ const { logins } = require("../../../lib/db");
 const loginModel = require("../../public/Login/login.model");
 
 module.exports = (sequelize, Sequelize) => {
-  const Student = sequelize.define("Student", {
+  const Student = sequelize.define("Students", {
     id: {
       type: Sequelize.INTEGER(11),
       allowNull: false,

@@ -2,7 +2,7 @@ const { logins } = require("../../../lib/db");
 const loginModel = require("../../public/Login/login.model");
 
 module.exports = (sequelize, Sequelize) => {
-  const Teacher = sequelize.define("Teacher", {
+  const Teacher = sequelize.define("Teachers", {
     id: {
       type: Sequelize.INTEGER(11),
       allowNull: false,
@@ -42,6 +42,10 @@ module.exports = (sequelize, Sequelize) => {
     website: {
       type: Sequelize.STRING(120),
       allowNull: true,
+    },
+    role: {
+      type: Sequelize.STRING(20), 
+      allowNull: false
     }
   });
 
