@@ -3,7 +3,7 @@ import handleResponse from "../../../lib/response.handler";
 const Teacher = db.teachers;
 const Op = db.Sequelize.Op;
 
-export function create(req, res) {
+export function create(req, res, next) {
   const {firstname, lastname, email, password, phonenumber1, phonenumber2, website, role} = req.body;
   // create teacher id
   const year = new Date().getFullYear();
@@ -13,11 +13,25 @@ export function create(req, res) {
   const teacher = {teacherid, firstname, lastname, email, password, phonenumber1, phonenumber2, website, role};
 
   Teacher.findOne({where: {email: email}})
-    .then(handleResponse.handleError(res, "Teacher already exists"))
+    .then(() => {throw new Error("Teacher already exists")})
 
   Teacher.create(teacher)
     .then(handleResponse.respond(res))
     .catch(handleResponse.handleError(res, "Error with create teacher"))
 }
 
-// this is git test
+export function get(req, res) {
+
+}
+
+export function update(req, res) {
+  const {teacherid, firstname, lastname, email, password, phonenumber1, phonenumber2, website, role} = req.body;
+  const teacher = {teacherid, firstname, lastname, email, password, phonenumber1, phonenumber2, website, role};
+
+  Teacher.findOne({where: {teacherid: teacherid}})
+    .then(() => {
+      Teacher.update(teacher, {where: {teacherid: teacherid}})
+        .then(handleResponse.respond(res))
+        .catch(handleResponse.handleError(res, "Error with update user"))
+    })
+}
