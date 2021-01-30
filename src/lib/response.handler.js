@@ -21,11 +21,11 @@ export default {
 
   handleError: function(res, status = 500) {
     return function(err, message) {
-      console.log("Error: ",err);
+      console.log("--------------Error: ",err.message);
       if (err.name) {
         switch(err.name) {
           case "SequelizeUniqueConstraintError":
-            return res.status(status).json({status: 404, message: "Not found!"});
+            return res.status(status).json({status: 500, message: message});
           default: 
             return res.status(400).json({ status: 'ERROR', details: err.message });
         }
