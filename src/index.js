@@ -11,15 +11,15 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-require("./plugins/core/student/index")(app)
-require("./plugins/core/teacher/index")(app)
-
-db.sequelize.sync();
-
 app.use(function(req, res, next) {
   req.handleResponse = responseHandler;
   next();
 });
+
+require("./plugins/core/student/index")(app)
+require("./plugins/core/teacher/index")(app)
+
+db.sequelize.sync();
 
 app.route("/").get((req, res) => {
   res.send("Welcome to Enterprise API");

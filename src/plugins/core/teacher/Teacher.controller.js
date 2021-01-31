@@ -1,5 +1,5 @@
 import db from "../../../lib/db";
-import handleResponse from "../../../lib/response.handler";
+// import handleResponse from "../../../lib/response.handler";
 const Teacher = db.teachers;
 const Op = db.Sequelize.Op;
 
@@ -13,15 +13,18 @@ export function create(req, res, next) {
   const teacher = {teacherid, firstname, lastname, email, password, phonenumber1, phonenumber2, website, role};
 
   Teacher.findOne({where: {email: email}})
-    .then(() => {throw new Error("Teacher already exists")})
+    .then(req.handleResponse.handleError(res))
 
   Teacher.create(teacher)
-    .then(handleResponse.respond(res))
-    .catch(handleResponse.handleError(res, "Error with create teacher"))
+    .then(req.handleResponse.respond(res))
+    .catch(req.handleResponse.handleError(res))
 }
 
 export function get(req, res) {
-
+  const {teacherpk} = req.body;
+  Teacher.findByPk(teacherpk)
+    .then(req.handleResponse.respond(res))
+    .catch(req.handleResponse.handleError(res))
 }
 
 export function update(req, res) {
@@ -31,7 +34,15 @@ export function update(req, res) {
   Teacher.findOne({where: {teacherid: teacherid}})
     .then(() => {
       Teacher.update(teacher, {where: {teacherid: teacherid}})
-        .then(handleResponse.respond(res))
-        .catch(handleResponse.handleError(res, "Error with update user"))
+        .then(req.handleResponse.respond(res))
+        .catch(req.handleResponse.handleError(res, "Error with update user"))
     })
+}
+
+export function deleteTeacher(req, res) {
+  const {teacherpk} = req.body;
+
+  Teacher.destroy({where: {id: teacherpk}})
+    .then(req.handleResponse.respond(res))
+    .catch(req.handleResponse.handleError(res))
 }
