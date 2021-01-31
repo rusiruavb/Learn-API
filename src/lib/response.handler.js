@@ -22,7 +22,7 @@ export default {
     }
   },
 
-  handleError: function(res, status = 500) {
+  handleError: function(res, status = 500, message) {
     return function(data) {
       console.log("Inside the handleError function");
       if (data == null) {

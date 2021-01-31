@@ -13,9 +13,13 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false
       },
-      token: {
-        type: Sequelize.STRING(2500),
+      userid: {
+        type: Sequelize.STRING(11),
         allowNull: false
+      },
+      usercode: {
+        type: Sequelize.STRING(13),
+        allowNull: false,
       },
       createdAt: Sequelize.DATE,
       updatedAt: Sequelize.DATE,
