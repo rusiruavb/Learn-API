@@ -21,7 +21,10 @@ export function create(req, res, next) {
 }
 
 export function get(req, res) {
-
+  const {teacherpk} = req.body;
+  Teacher.findByPk(teacherpk)
+    .then(req.handleResponse.respond(res))
+    .catch(req.handleResponse.handleError(res))
 }
 
 export function update(req, res) {
@@ -34,4 +37,12 @@ export function update(req, res) {
         .then(req.handleResponse.respond(res))
         .catch(req.handleResponse.handleError(res, "Error with update user"))
     })
+}
+
+export function deleteTeacher(req, res) {
+  const {teacherpk} = req.body;
+
+  Teacher.destroy({where: {id: teacherpk}})
+    .then(req.handleResponse.respond(res))
+    .catch(req.handleResponse.handleError(res))
 }
