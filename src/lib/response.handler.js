@@ -1,11 +1,13 @@
 export default {
   respond: function(res, status = 200) {
     return function(data) {
-      // console.log("Inside the respond function");
+      console.log("Inside the respond function");
       if (data == null) {
-        return res.status(404).json({status: 404, message: "Not found!"});
+        res.status(404).json({status: 404, message: "Not found!"});
+        return;
       }
-      return res.status(status).json(data);
+      res.status(status).json(data);
+      return;
     }
   },
 
@@ -13,19 +15,22 @@ export default {
     return function(data) {
       // console.log("Inside Not found function");
       if (data == null) {
-        return res.status(status).json({status: 404, message: "Information Not Found"});
+        res.status(status).json({status: 404, message: "Information Not Found"});
+        return;
       }
       return data
     }
   },
 
-  handleError: function(res, status = 500, message) {
+  handleError: function(res, status = 500) {
     return function(data) {
-      // console.log("Inside the handleError function");
+      console.log("Inside the handleError function");
       if (data == null) {
-        return res.status(404).json({status: 404, message: "Not found!"});
+        res.status(404).json({status: 404, message: "Not found!"});
+        return;
       }
-      return res.status(status).json({status: status, message: "Error"});
+      res.status(status).json({status: status, message: "Error"});
+      return;
     }
   }
 }
