@@ -18,6 +18,7 @@ app.use(function(req, res, next) {
 
 require("./plugins/core/student/index")(app)
 require("./plugins/core/teacher/index")(app)
+require("./plugins/public/Login/index")(app)
 
 db.sequelize.sync();
 

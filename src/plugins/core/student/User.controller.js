@@ -1,5 +1,5 @@
 import db from "../../../lib/db";
-import handleResponse from "../../../lib/response.handler";
+// import handleResponse from "../../../lib/response.handler";
 const User = db.students;
 const Op = db.Sequelize.Op;
 
@@ -13,24 +13,24 @@ export function create(req, res) {
   // create student object
   const user = { studentid, firstname, lastname, gender, email, password, address1, address2, city, phonenumber, role};
   User.findOne({ where: {email: email}})
-    .then(handleResponse.handleError(res, "User already exists"));
+    .then(req.handleResponse.handleError(res, "User already exists"));
   
   User.create(user)
-    .then(handleResponse.respond(res))
-    .catch(handleResponse.handleError(res, "Error with create user"))
+    .then(req.handleResponse.respond(res))
+    .catch(req.handleResponse.handleError(res, "Error with create user"))
 }
 
 export function findOne(req, res) {
   const { primaryKey } = req.body;
   User.findByPk(primaryKey)
-    .then(handleResponse.respond(res))
-    .catch(handleResponse.handleError(res, "Error with find user"))
+    .then(req.handleResponse.respond(res))
+    .catch(req.handleResponse.handleError(res, "Error with find user"))
 }
 
 export function findAll(req, res) {
   User.findAll()
-    .then(handleResponse.respond(res))
-    .catch(handleResponse.handleError(res, "Error with get all users"))
+    .then(req.handleResponse.respond(res))
+    .catch(req.handleResponse.handleError(res, "Error with get all users"))
 }
 
 export function updateUser(req, res) {
@@ -40,14 +40,14 @@ export function updateUser(req, res) {
   User.findOne({where: {email: email}})
     .then(() => {
       User.update(user, {where: {id: id}})
-        .then(handleResponse.respond(res))
-        .catch(handleResponse.handleError(res, "Error with update user"))
+        .then(req.handleResponse.respond(res))
+        .catch(req.handleResponse.handleError(res, "Error with update user"))
     })
 }
 
 export function deleteUser(req, res) {
   const id = req.params.id;
   User.destroy({where: {id: id}})
-    .then(handleResponse.respond(res))
-    .catch(handleResponse.handleError(res, "Error with delete user"))
+    .then(req.handleResponse.respond(res))
+    .catch(req.handleResponse.handleError(res, "Error with delete user"))
 }
