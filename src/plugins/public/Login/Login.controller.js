@@ -23,6 +23,8 @@ export function studentlogin(req, res) {
             // for instance, when use login to the system, the response handler shold give reponse
             // back to the frontend. But instead it will give an errro in the console.
             // and the frontend always waiting
+
+            // this is test before merging
         } else {
           res.status(400).json({status: 400, message: "Passowrd is not matched"})
         }
